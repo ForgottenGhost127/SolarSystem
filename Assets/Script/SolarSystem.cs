@@ -42,12 +42,15 @@ public class SolarSystem : MonoBehaviour
 
         //Para intentar hacer que sat2 cambie su tamaño mientras gira debemos mantener la posicion, y cambiar la escala. 
         //Haz que Sat2 cambie de tamaño a la vez que gira. Si el ángulo entre su eje X y el eje X global es menor que 90 (usando Vector3.Angle), reducirá su tamaño. Si no, aumentará su tamaño.
-        Vector3 posSatelite = new Vector3(Sat2Trans.position.x, Sat2Trans.position.y, Sat2Trans.position.z);
-        Vector3 satelite2X = new Vector3(90, Sat2Trans.position.y, Sat2Trans.position.z);
+        float angle = Vector3.Angle(Sat2Trans.right, Vector3.right);
 
-        if (posSatelite.x < satelite2X.x)
+        if (angle < 90f)
         {
-            Vector3.Angle(posSatelite, satelite2X);
+            Sat2Trans.localScale = Vector3.Lerp(Sat2Trans.localScale, new Vector3 (0.5f, 0.5f, 0.5f), Time.deltaTime);
+        }
+        else
+        {
+            Sat2Trans.localScale = Vector3.Lerp(Sat2Trans.localScale, new Vector3(5f, 5f, 5f), Time.deltaTime);
         }
     }
 }
